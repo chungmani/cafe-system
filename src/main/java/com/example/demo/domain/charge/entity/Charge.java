@@ -34,6 +34,7 @@ public class Charge {
         }
 
         this.point = point;
+        this.chargedAt = LocalDateTime.now();
         this.user = user;
     }
 }

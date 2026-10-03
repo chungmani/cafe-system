@@ -70,11 +70,12 @@
 }
 ```
 
-| 필드 | 타입 | 설명 |
-|---|---|---|
-| `userId` | `Long` | 사용자 ID |
-| `chargedPoint` | `Long` | 충전된 포인트 |
-| `currentPoint` | `Long` | 충전 후 현재 포인트 |
+| 필드             | 타입              | 설명          |
+|----------------|-----------------|-------------|
+| `userId`       | `Long`          | 사용자 ID      |
+| `chargedPoint` | `Long`          | 충전된 포인트     |
+| `currentPoint` | `Long`          | 충전 후 현재 포인트 |
+| `chargedAt`    | `LocalDateTime` | 충전 시간       |
 
 ### 주요 예외
 

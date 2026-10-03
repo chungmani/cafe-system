@@ -24,7 +24,7 @@ public class OrderItem extends BaseEntity {
     private long menuPrice;
 
     @Column(nullable = false)
-    private long quantity;
+    private int quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
@@ -34,7 +34,7 @@ public class OrderItem extends BaseEntity {
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
-    public OrderItem(String menuName, long menuPrice, long quantity, Order order, Menu menu) {
+    public OrderItem(String menuName, long menuPrice, int quantity, Order order, Menu menu) {
         this.menuName = menuName;
         this.menuPrice = menuPrice;
         this.quantity = quantity;

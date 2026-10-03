@@ -16,11 +16,16 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
     private long point;
 
     public User(String name) {
         this.name = name;
+    }
+
+    public void updatePoint(long amount) {
+       this.point += amount;
     }
 }
