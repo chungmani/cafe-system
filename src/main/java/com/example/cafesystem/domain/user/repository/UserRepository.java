@@ -9,7 +9,8 @@ import org.springframework.data.repository.query.Param;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     // 포인트 충전 원자적 업데이트 쿼리문
-    @Modifying @Query("""
+    @Modifying(clearAutomatically = true)
+    @Query("""
     UPDATE User u SET u.point = u.point + :amount
     WHERE u.id = :userId
     """)

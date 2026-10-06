@@ -25,7 +25,8 @@ public class ChargeService {
         Charge charge = new Charge(request.amount(), user);
         Charge savedCharge = chargeRepository.save(charge);
         userService.chargePoint(userId, request.amount());
-        return CreateChargeResponse.from(savedCharge);
+        User updatedUser = userService.getUser(userId);
+        return CreateChargeResponse.from(savedCharge, updatedUser);
     }
 
 }
