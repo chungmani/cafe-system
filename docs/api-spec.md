@@ -126,7 +126,6 @@
   "orderId": 100,
   "userId": 1,
   "totalPrice": 10000,
-  "remainingPoint": 5000,
   "items": [
     {
       "menuId": 1,

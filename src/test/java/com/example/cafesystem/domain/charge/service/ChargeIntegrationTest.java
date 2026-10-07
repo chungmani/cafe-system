@@ -6,7 +6,6 @@ import com.example.cafesystem.domain.charge.entity.Charge;
 import com.example.cafesystem.domain.charge.repository.ChargeRepository;
 import com.example.cafesystem.domain.user.entity.User;
 import com.example.cafesystem.domain.user.repository.UserRepository;
-import com.example.cafesystem.domain.user.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

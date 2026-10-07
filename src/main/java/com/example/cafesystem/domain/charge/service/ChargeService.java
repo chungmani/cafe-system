@@ -8,6 +8,7 @@ import com.example.cafesystem.domain.user.entity.User;
 import com.example.cafesystem.domain.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.CannotAcquireLockException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,16 +18,29 @@ public class ChargeService {
 
     private final ChargeRepository chargeRepository;
     private final UserService userService;
+    private final ChargeTransactionService transactionService;
 
     // 포인트 충전
-    @Transactional
-    public CreateChargeResponse create(Long userId, @Valid CreateChargeRequest request) {
-        User user = userService.getUser(userId);
-        Charge charge = new Charge(request.amount(), user);
-        Charge savedCharge = chargeRepository.save(charge);
-        userService.chargePoint(userId, request.amount());
-        User updatedUser = userService.getUser(userId);
-        return CreateChargeResponse.from(savedCharge, updatedUser);
+    public CreateChargeResponse create(Long userId, CreateChargeRequest request) {
+        int maxRetry = 3;
+
+        for (int attempt = 1; attempt <= maxRetry; attempt++) {
+            try {
+                return transactionService.charge(userId, request);
+            } catch (CannotAcquireLockException e) {
+                if (attempt == maxRetry) {
+                    throw e;
+                }
+
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();;
+                    throw new RuntimeException(ex);
+                }
+            }
+        }
+        throw new IllegalArgumentException("포인트 충전에 실패했습니다.");
     }
 
 }
